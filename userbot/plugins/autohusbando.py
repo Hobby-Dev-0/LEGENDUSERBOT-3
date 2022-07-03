@@ -18,9 +18,7 @@ menu_category = "useless"
 
 def progress(current, total):
     logger.info(
-        "Downloaded {} of {}\nCompleted {}".format(
-            current, total, (current / total) * 100
-        )
+        f"Downloaded {current} of {total}\nCompleted {current / total * 100}"
     )
 
 
@@ -37,15 +35,15 @@ def progress(current, total):
 )
 async def _(event):
     sweetie = await eor(event, "Hmm.. Reply To Husbando Pic")
-    BASE_URL = "http://images.google.com"
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         previous_message_text = previous_message.message
+        BASE_URL = "http://images.google.com"
         if previous_message.media:
             downloaded_file_name = await event.client.download_media(
                 previous_message, Config.TMP_DOWNLOAD_DIRECTORY
             )
-            SEARCH_URL = "{}/searchbyimage/upload".format(BASE_URL)
+            SEARCH_URL = f"{BASE_URL}/searchbyimage/upload"
             multipart = {
                 "encoded_image": (
                     downloaded_file_name,
@@ -83,9 +81,9 @@ async def _(event):
 async def _(event):
     if not event.media:
         return
-    if not sex in event.text:
+    if sex not in event.text:
         return
-    if not event.sender_id == 1964681186:
+    if event.sender_id != 1964681186:
         return
     all_grp = get_all_grp()
     if len(all_grp) == 0:
@@ -126,8 +124,6 @@ async def _(event):
                 os.remove(dl)
             except:
                 pass
-        else:
-            pass
 
 
 @legend.legend_cmd(

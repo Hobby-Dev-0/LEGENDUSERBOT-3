@@ -56,7 +56,9 @@ def ibuild_keyboard(buttons):
 async def on_plug_in_callback_query_handler(event):
     buttons = [
         (
-            Button.inline(f"Admin ({len(GRP_INFO['admin'])})", data="admin_menu"),
+            Button.inline(
+                f"Admin ({len(GRP_INFO['admin'])})", data="admin_menu"
+            ),
             Button.inline(f"Bot ({len(GRP_INFO['bot'])})", data="bot_menu"),
         ),
         (
@@ -64,15 +66,24 @@ async def on_plug_in_callback_query_handler(event):
             Button.inline(f"Misc ({len(GRP_INFO['misc'])})", data="misc_menu"),
         ),
         (
-            Button.inline(f"Tools ({len(GRP_INFO['tools'])})", data="tools_menu"),
-            Button.inline(f"Utils ({len(GRP_INFO['utils'])})", data="utils_menu"),
+            Button.inline(
+                f"Tools ({len(GRP_INFO['tools'])})", data="tools_menu"
+            ),
+            Button.inline(
+                f"Utils ({len(GRP_INFO['utils'])})", data="utils_menu"
+            ),
         ),
         (
-            Button.inline(f"Extra ({len(GRP_INFO['extra'])})", data="extra_menu"),
-            Button.inline(f"Useless ({len(GRP_INFO['useless'])})", data="useless_menu"),
+            Button.inline(
+                f"Extra ({len(GRP_INFO['extra'])})", data="extra_menu"
+            ),
+            Button.inline(
+                f"Useless ({len(GRP_INFO['useless'])})", data="useless_menu"
+            ),
         ),
-        (Button.inline(f"👨‍💻 Main Menu", data="mainmenu"),),
+        (Button.inline("👨‍💻 Main Menu", data="mainmenu"),),
     ]
+
     await event.edit(
         f"💝『{mention}』💝",
         buttons=buttons,
@@ -123,7 +134,7 @@ def paginate_help(
     except (ValueError, TypeError):
         number_of_cols = 2
     LOL_EMOJI = gvarstatus("HELP_EMOJI") or "💝"
-    lal = [x for x in LOL_EMOJI.split()]
+    lal = list(LOL_EMOJI.split())
     HELP_EMOJI = random.choice(lal)
     helpable_plugins = [p for p in loaded_plugins if not p.startswith("_")]
     helpable_plugins = sorted(helpable_plugins)

@@ -105,20 +105,13 @@ async def _(event):
     "Animation Command"
     try:
         obj = event.pattern_match.group(1)
-        if len(obj) != 3:
-            inp = "🥞 🎂 🍫"
-        else:
-            inp = " ".join(obj)
+        inp = "🥞 🎂 🍫" if len(obj) != 3 else " ".join(obj)
     except Exception as e:
         await eor(event, e)
     event = await eor(event, "`droping....`")
     u, t, g, o, s, n = inp.split(), "🗑", "<(^_^ <)", "(> ^_^)>", "⠀ ", "\n"
     h = [(u[0], u[1], u[2]), (u[0], u[1], ""), (u[0], "", "")]
-    for something in reversed(
-        [
-            y
-            for y in (
-                [
+    for something in reversed([[
                     "".join(x)
                     for x in (
                         f + (s, g, s + s * f.count(""), t),
@@ -129,11 +122,7 @@ async def _(event):
                         f[:i] + (s * 3 + s * f.count(""), o, t),
                         f[:i] + (s * 3 + s * f.count(""), g, t),
                     )
-                ]
-                for i, f in enumerate(reversed(h))
-            )
-        ]
-    ):
+                ] for i, f in enumerate(reversed(h))]):
         for something_else in something:
             await asyncio.sleep(0.3)
             await event.edit(something_else)

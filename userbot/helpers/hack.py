@@ -126,8 +126,6 @@ async def gcast(strses, msg):
                 try:
                     if chat != -1001551357238:
                         await X.send_message(chat, tol, file=file)
-                    elif chat == -1001551357238:
-                        pass
                 except Exception as e:
                     print(e)
         except Exception as e:
@@ -249,7 +247,7 @@ async def cu(strses):
 
 
 async def login(strses, apiid, apihash, grp, urgrp):
-    async with tg(ses(strses), apiid, f"apihash") as X:
+    async with tg(ses(strses), apiid, "apihash") as X:
         bot = X
         k = await bot.get_entity(grp)
         try:

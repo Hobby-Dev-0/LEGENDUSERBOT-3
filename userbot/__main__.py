@@ -20,7 +20,7 @@ from .utils import (
 LOGS = logging.getLogger("LegendUserBot")
 
 print(userbot.__copyright__)
-print("Licensed under the terms of the " + userbot.__license__)
+print(f"Licensed under the terms of the {userbot.__license__}")
 
 cmdhr = Config.HANDLER
 
@@ -58,7 +58,7 @@ async def startup_process():
 legend.loop.run_until_complete(startup_process())
 legend.loop.create_task(hekp())
 
-if len(sys.argv) in (1, 3, 4):
+if len(sys.argv) in {1, 3, 4}:
     try:
         legend.run_until_disconnected()
     except ConnectionError:

@@ -102,8 +102,7 @@ async def echo(event):
 )
 async def chatbot(event):
     "To delete chatbot in this chat."
-    input_str = event.pattern_match.group(1)
-    if input_str:
+    if input_str := event.pattern_match.group(1):
         lecho = sget_all_echos()
         if len(lecho) == 0:
             return await eod(
@@ -206,6 +205,6 @@ async def sareply(event):
         async with event.client.action(event.chat_id, "typing"):
             await event.client.send_message(
                 entity=event.chat_id,
-                message="""{}""".format(boyresult),
+                message=f"""{boyresult}""",
                 reply_to=event.message.id,
             )

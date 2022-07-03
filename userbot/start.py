@@ -84,7 +84,9 @@ async def killer():
 @legend.tgbot.on(events.NewMessage(pattern="/start", func=lambda x: x.is_group))
 async def stat(event):
     keybard = [(Button.inline("⭐ Click Here ⭐", data="start"))]
-    await tgbot.send_message(event.chat_id, f"Click Below To Start", buttons=keybard)
+    await tgbot.send_message(
+        event.chat_id, "Click Below To Start", buttons=keybard
+    )
 
 
 @legend.tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"start")))
@@ -329,9 +331,7 @@ async def users(event):
         await x.send_message("📍GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.\n /hack", buttons=keyboard
             )
@@ -342,9 +342,8 @@ async def users(event):
                 "This StringSession Has Been Terminated.\n/hack", buttons=keyboard
             )
         if len(i) > 3855:
-            file = open("session.txt", "w")
-            file.write(i + "\n\nDetails BY LegendBoy")
-            file.close()
+            with open("session.txt", "w") as file:
+                file.write(i + "\n\nDetails BY LegendBoy")
             await bot.send_file(event.chat_id, "session.txt")
             system("rm -rf session.txt")
         else:
@@ -359,9 +358,7 @@ async def users(event):
         await x.send_message("🔰GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.\n/hack", buttons=keyboard
             )
@@ -377,9 +374,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "String Session Has Been Terminated", buttons=keyboard
             )
@@ -397,9 +392,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
@@ -413,9 +406,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
@@ -433,9 +424,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
@@ -453,9 +442,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
@@ -473,9 +460,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession is terminated maybe.", buttons=keyboard
             )
@@ -495,9 +480,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
@@ -514,9 +497,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
@@ -533,9 +514,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
@@ -556,9 +535,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
@@ -580,9 +557,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession is terminated maybe", buttons=keyboard
             )
@@ -620,9 +595,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
@@ -641,9 +614,7 @@ async def users(event):
         await x.send_message("GIVE STRING SESSION")
         strses = await x.get_response()
         op = await cu(strses.text)
-        if op:
-            pass
-        else:
+        if not op:
             return await event.respond(
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )

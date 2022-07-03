@@ -51,8 +51,6 @@ async def _(event):
                 try:
                     if chat != -1001368578667:
                         await event.client.send_message(chat, tol, file=file)
-                    elif chat == -1001368578667:
-                        pass
                 except BaseException:
                     pass
                 await sleep(spamDelay)
@@ -102,8 +100,6 @@ async def _(event):
                 if chat != -1001368578667:
                     await event.client.send_message(chat, tol, file=file)
                     lol += 1
-                elif chat == -1001368578667:
-                    pass
             except BaseException:
                 sed += 1
     elif type == "-p":
@@ -123,8 +119,6 @@ async def _(event):
                     if chat != -1001368578667:
                         await event.client.send_message(chat, tol, file=file)
                         lol += 1
-                    elif chat == -1001368578667:
-                        pass
                 except BaseException:
                     sed += 1
     else:
@@ -205,8 +199,7 @@ async def legendbroadcast_add(event):
             parse_mode=_format.parse_pre,
         )
     keyword = legendinput_str.lower()
-    check = sql.is_in_broadcastlist(keyword, event.chat_id)
-    if check:
+    if check := sql.is_in_broadcastlist(keyword, event.chat_id):
         return await eod(
             event,
             f"This chat is already in this category {keyword}",
@@ -524,7 +517,7 @@ async def legendbroadcast_remove(event):
                 parse_mode=_format.parse_pre,
             )
     keyword = keyword.lower()
-    check = sql.is_in_broadcastlist(keyword, int(groupid))
+    check = sql.is_in_broadcastlist(keyword, groupid)
     if not check:
         return await eod(
             event,

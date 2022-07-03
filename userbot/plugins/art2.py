@@ -164,8 +164,7 @@ async def lisj(frogsay):
 )
 async def bluedevilbye(event):
     "fun art command"
-    BYE_PIC = "https://te.legra.ph/file/aa16cad62645045062c0f.jpg"
-    if BYE_PIC:
+    if BYE_PIC := "https://te.legra.ph/file/aa16cad62645045062c0f.jpg":
         event = await eor(event, "**❛ Bye ❜!**")
         lol = "Bye Friends"
         await event.delete()

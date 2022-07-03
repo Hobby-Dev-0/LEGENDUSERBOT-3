@@ -180,7 +180,7 @@ async def users(event):
         total_users = get_all_users()
         users_list = "⚜List Of Total Users In Bot.⚜ \n\n"
         for starked in total_users:
-            users_list += ("==> {} \n").format(int(starked.chat_id))
+            users_list += f"==> {int(starked.chat_id)} \n"
         with io.BytesIO(str.encode(users_list)) as tedt_file:
             tedt_file.name = "userlist.txt"
             await event.client.send_file(
@@ -286,11 +286,15 @@ async def bot_pms_edit(event):  # sourcery no-metrics
         users = get_user_reply(event.id)
         if users is None:
             return
-        reply_msg = None
-        for user in users:
-            if user.chat_id == str(chat.id):
-                reply_msg = user.message_id
-                break
+        reply_msg = next(
+            (
+                user.message_id
+                for user in users
+                if user.chat_id == str(chat.id)
+            ),
+            None,
+        )
+
         if reply_msg := next(
             (user.message_id for user in users if user.chat_id == str(chat.id)),
             None,

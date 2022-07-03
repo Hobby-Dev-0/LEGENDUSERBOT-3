@@ -112,15 +112,13 @@ async def fileinfo(file):
         "extension": legend_json[0]["FileExtension"],
     }
     try:
-        if "VideoCount" or "AudioCount" or "ImageCount" in cat_json[0]:
-            dic["format"] = legend_json[0]["Format"]
-            dic["type"] = legend_json[1]["@type"]
-            if "ImageCount" not in legend_json[0]:
-                dic["duration"] = int(float(legend_json[0]["Duration"]))
-                dic["bitrate"] = int(int(legend_json[0]["OverallBitRate"]) / 1000)
-            if "VideoCount" or "ImageCount" in legend_json[0]:
-                dic["height"] = int(legend_json[1]["Height"])
-                dic["width"] = int(legend_json[1]["Width"])
+        dic["format"] = legend_json[0]["Format"]
+        dic["type"] = legend_json[1]["@type"]
+        if "ImageCount" not in legend_json[0]:
+            dic["duration"] = int(float(legend_json[0]["Duration"]))
+            dic["bitrate"] = int(legend_json[0]["OverallBitRate"]) // 1000
+        dic["height"] = int(legend_json[1]["Height"])
+        dic["width"] = int(legend_json[1]["Width"])
     except (IndexError, KeyError):
         pass
     return dic
@@ -138,8 +136,7 @@ async def animator(media, mainevent, textevent):
         f"ffmpeg -ss 00:00:00 -to 00:00:02.900 -i {LegendOp} -vf scale={w}:{h} -c:v libvpx-vp9 -crf 30 -b:v 560k -maxrate 560k -bufsize 256k -an animate.webm"
     )  # pain
     os.remove(LegendOp)
-    sticker = "animate.webm"
-    return sticker
+    return "animate.webm"
 
 
 async def hide_inlinebot(borg, bot_name, text, chat_id, reply_to_id, c_lick=0):
@@ -189,8 +186,7 @@ def ellipse_create(filename, size, border):
 
 def ellipse_layout_create(filename, size, border):
     x, mask = ellipse_create(filename, size, border)
-    img = ImageOps.expand(mask)
-    return img
+    return ImageOps.expand(mask)
 
 
 def text_draw(font_name, font_size, img, text, hight, stroke_width=0, stroke_fill=None):
@@ -302,8 +298,7 @@ def higlighted_text(
     for item in raw_text:
         input_text = "\n".join(wrap(item, int((40.0 / resized_width) * mask_size)))
         split_text = input_text.splitlines()
-        for final in split_text:
-            list_text.append(final)
+        list_text.extend(iter(split_text))
     texts = [list_text]
     if album and len(list_text) > lines:
         texts = [list_text[i : i + lines] for i in range(0, len(list_text), lines)]

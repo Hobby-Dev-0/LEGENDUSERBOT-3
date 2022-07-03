@@ -15,8 +15,7 @@ menu_category = "fun"
 )
 async def _(event):
     "fun art command"
-    name = event.text[4:]
-    if name:
+    if name := event.text[4:]:
         await eor(
             event,
             f"{ALIVE_NAME} --- {name}          \n　　　　　|"
@@ -48,8 +47,7 @@ async def _(event):
 )
 async def _(event):
     "fun art command"
-    name = event.pattern_match.group(1)
-    if name:
+    if name := event.pattern_match.group(1):
         await eor(
             event,
             f"__**Commando **__{ALIVE_NAME}          \n\n"
@@ -444,21 +442,20 @@ async def bluedevilhello(event):
     "fun art command"
     await event.get_chat()
     event = await eor(event, "**(❛ Hi ❜!**")
-    HELL_PIC = "https://te.legra.ph/file/b86eff074051b0b2d4513.jpg"
-    K_PIC = "https://te.legra.ph/file/a679e3d061ac6b349cd60.jpg"
-    L_PIC = "https://te.legra.ph/file/96c2b61d6361f112ceac5.jpg"
-    M_PIC = "https://te.legra.ph/file/4d0c641e085f7ed15dfec.jpg"
-    if HELL_PIC:
+    if HELL_PIC := "https://te.legra.ph/file/b86eff074051b0b2d4513.jpg":
         HELLO = f"╔┓┏╦━╦┓╔┓╔━━╗\n"
         HELLO += f"║┗┛║┗╣┃║┃║X X ║\n"
         HELLO += f"║┏┓║┏╣┗╣┗╣╰╯║\n"
         HELLO += f"╚┛┗╩━╩━╩━╩━━╝\n"
         on = await event.client.send_file(event.chat_id, file=HELL_PIC, caption=HELLO)
         await asyncio.sleep(3)
+        K_PIC = "https://te.legra.ph/file/a679e3d061ac6b349cd60.jpg"
         ok = await event.client.edit_message(event.chat_id, on, file=K_PIC)
         await asyncio.sleep(3)
+        L_PIC = "https://te.legra.ph/file/96c2b61d6361f112ceac5.jpg"
         ok1 = await event.client.edit_message(event.chat_id, on, file=L_PIC)
         await asyncio.sleep(3)
+        M_PIC = "https://te.legra.ph/file/4d0c641e085f7ed15dfec.jpg"
         ok2 = await event.client.edit_message(event.chat_id, ok1, file=M_PIC)
         await asyncio.sleep(5)
         ok3 = await event.client.edit_message(event.chat_id, ok2, file=L_PIC)
@@ -556,8 +553,7 @@ async def bluedevilsnake(snake):
     },
 )
 async def legend(carry):
-    name = carry.pattern_match.group(1)
-    if name:
+    if name := carry.pattern_match.group(1):
         await eor(
             carry,
             f"**Carry ~> {name} .**\n\n                     ⣤⣶⣶⣶⣦⣤⣄⡀\n⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀\n⠀⠀⠀⢀⣾⣿⣿⣿⠿⠿⠟⠻⠿⢿⣿⣿⣿⡆\n⠀⠀⠀⢰⣿⣿⡿⠂⠀⠀⠀⠀⠀⠀ ⠈⠉⢻⡇ \n⠀⠀⠀⠈⠿⣿⣇⣠⠤⠤⠤⢤⣀⣤⠤⠤⣺⡏ \n⠀⠀⠀⠀⠐⢉⣯⠹⣀⣀⣢⡸⠉⢏⡄⣀⣯⠁ \n⠀⠀⠀⠀⠡⠀⢹⣆⠀⠀⠀⣀⡀⡰⠀⢠⠖⠂ \n⠀⠀⠀⠀⠀⠈⠙⣿⣿⠀⠠⠚⢋⡁⠀⡜ \n⠀⠀⠀⠀⠀⠀⢸⠈⠙⠦⣤⣀⣤⣤⡼⠁  \n⠀⠀⠀ ⠀⢀⡌⠀⠀⠀⠀ ⠉⢏⡉  \n⠀⠀⠀⣀⣴⣿⣷⣶⣤⣤⣤⣴⣾⣷⣶⣦⡀ \n⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄ \n⠚⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛",
@@ -704,8 +700,7 @@ async def lisj(frogsay):
 )
 async def bluedevilbye(event):
     "fun art command"
-    BYE_PIC = "https://te.legra.ph/file/aa16cad62645045062c0f.jpg"
-    if BYE_PIC:
+    if BYE_PIC := "https://te.legra.ph/file/aa16cad62645045062c0f.jpg":
         event = await event.send_message(bye, "**❛ Bye ❜!**")
         lol = "Bye Friends"
         await legend.send_file(event.chat_id, BYE_PIC, caption=lol)

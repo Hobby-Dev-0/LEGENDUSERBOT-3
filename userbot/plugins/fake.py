@@ -173,7 +173,6 @@ async def gbun(event):
     gbunVar = event.text
     gbunVar = gbunVar[6:]
     mentions = "`Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By Admin...\n`"
-    no_reason = "__Reason: Madarchod Saala"
     await event.edit("** Nikal Lawde❗️⚜️☠️**")
     asyncio.sleep(3.5)
     chat = await event.get_input_chat()
@@ -191,22 +190,20 @@ async def gbun(event):
                 "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 99$ to my master__ [LegendBoy](https://t.me/LegendBoy_XD) __to release your account__😏"
             )
         else:
-            jnl = (
-                "`Warning!! `"
-                "[{}](tg://user?id={})"
-                "` 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By Admin...\n\n`"
-                "**Person's Name: ** __{}__\n"
-                "**ID : ** `{}`\n"
-            ).format(firstname, idd, firstname, idd)
-            if usname == None:
+            jnl = f"`Warning!! `[{firstname}](tg://user?id={idd})` 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By Admin...\n\n`**Person's Name: ** __{firstname}__\n**ID : ** `{idd}`\n"
+
+            if usname == "None":
+                pass
+            elif usname is None:
                 jnl += "**Victim Nigga's username: ** `Doesn't own a username!`\n"
-            elif usname != "None":
-                jnl += "**Victim Nigga's username** : @{}\n".format(usname)
+            else:
+                jnl += f"**Victim Nigga's username** : @{usname}\n"
             if len(gbunVar) > 0:
-                gbunm = "`{}`".format(gbunVar)
-                gbunr = "**Reason: **" + gbunm
+                gbunm = f"`{gbunVar}`"
+                gbunr = f"**Reason: **{gbunm}"
                 jnl += gbunr
             else:
+                no_reason = "__Reason: Madarchod Saala"
                 jnl += no_reason
             await reply_message.reply(jnl)
     else:
@@ -437,7 +434,6 @@ async def gmute(event):
     gbunVar = event.text
     gbunVar = gbunVar[6:]
     mentions = "**Warning!! User Gmuted By Admin...\n**"
-    no_reason = "__Reason: ab sale Globally mute hi rah"
     await event.edit("** Gmutting...**")
     asyncio.sleep(2)
     chat = await event.get_input_chat()
@@ -456,22 +452,20 @@ async def gmute(event):
                 "`Wait a second, This is my master!`\n**How dare you threaten to Mute my master nigger!**\n\n__Your account has been hacked! Pay 99$ to my master__ [LegendBoy](https://t.me/LegendBoy_XD) __to release your account__😏"
             )
         else:
-            jnl = (
-                "`Warning!! `"
-                "[{}](tg://user?id={})"
-                "` Gmutted By Admin...\n\n`"
-                "**Name: ** __{}__\n"
-                "**ID : ** `{}`\n"
-            ).format(firstname, idd, firstname, idd)
-            if usname == None:
+            jnl = f"`Warning!! `[{firstname}](tg://user?id={idd})` Gmutted By Admin...\n\n`**Name: ** __{firstname}__\n**ID : ** `{idd}`\n"
+
+            if usname == "None":
+                pass
+            elif usname is None:
                 jnl += "**Victim Nigga's username: ** `Doesn't have a username!`\n"
-            elif usname != "None":
-                jnl += "**Victim Nigga's username** : @{}\n".format(usname)
+            else:
+                jnl += f"**Victim Nigga's username** : @{usname}\n"
             if len(gbunVar) > 0:
-                gbunm = "`{}`".format(gbunVar)
-                gbunr = "**Reason: **" + gbunm
+                gbunm = f"`{gbunVar}`"
+                gbunr = f"**Reason: **{gbunm}"
                 jnl += gbunr
             else:
+                no_reason = "__Reason: ab sale Globally mute hi rah"
                 jnl += no_reason
             await reply_message.reply(jnl)
     else:
@@ -494,7 +488,6 @@ async def gbun(event):
     gbunVar = event.text
     gbunVar = gbunVar[8:]
     mentions = "**Warning!! User Unmuted By Admin...\n**"
-    no_reason = "__Reason: Purani bat Bhool ja __ Wo pakar ke jhool jha__"
     await event.edit("**Ungmutting...**")
     asyncio.sleep(2)
     chat = await event.get_input_chat()
@@ -513,22 +506,20 @@ async def gbun(event):
                 "Wait a second. Maine Gmute kab kiya Owner ko toh main unmute karu!!!"
             )
         else:
-            jnl = (
-                "`Warning!! `"
-                "[{}](tg://user?id={})"
-                "` Ungmutted By Admin...\n\n`"
-                "**Name: ** __{}__\n"
-                "**ID : ** `{}`\n"
-            ).format(firstname, idd, firstname, idd)
-            if usname == None:
+            jnl = f"`Warning!! `[{firstname}](tg://user?id={idd})` Ungmutted By Admin...\n\n`**Name: ** __{firstname}__\n**ID : ** `{idd}`\n"
+
+            if usname == "None":
+                pass
+            elif usname is None:
                 jnl += "**Victim Nigga's username: ** `Doesn't have a username!`\n"
-            elif usname != "None":
-                jnl += "**Victim Nigga's username** : @{}\n".format(usname)
+            else:
+                jnl += f"**Victim Nigga's username** : @{usname}\n"
             if len(gbunVar) > 0:
-                gbunm = "`{}`".format(gbunVar)
-                gbunr = "**Reason: **" + gbunm
+                gbunm = f"`{gbunVar}`"
+                gbunr = f"**Reason: **{gbunm}"
                 jnl += gbunr
             else:
+                no_reason = "__Reason: Purani bat Bhool ja __ Wo pakar ke jhool jha__"
                 jnl += no_reason
             await reply_message.reply(jnl)
     else:
