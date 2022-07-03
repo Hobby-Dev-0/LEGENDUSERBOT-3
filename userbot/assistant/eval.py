@@ -15,12 +15,16 @@ botusername = Config.BOT_USERNAME
 
 async def aexec(code, event):
     exec(
-        f"async def __aexec(e, client): "
-        + "\n message = event = e"
-        + "\n reply = await event.get_reply_message()"
-        + "\n chat = (await event.get_chat()).id"
-        + "".join(f"\n {l}" for l in code.split("\n")),
+        (
+            (
+                ("async def __aexec(e, client): " + "\n message = event = e")
+                + "\n reply = await event.get_reply_message()"
+            )
+            + "\n chat = (await event.get_chat()).id"
+        )
+        + "".join(f"\n {l}" for l in code.split("\n"))
     )
+
 
     return await locals()["__aexec"](event, event.client)
 
@@ -51,9 +55,7 @@ async def bot_ll(event):
         return await rk.edit(
             "Sorry, This Is Sensitive Data I Cant Send It To Public.& Reported to Admin Of [LegendBot](https://t.me/LegendBot_AI) Group admin. & Dont Try To Send Any Information Without Knowing Anything."
         )
-    reply_to_id = event.message.id
-    if event.reply_to_msg_id:
-        reply_to_id = event.reply_to_msg_id
+    reply_to_id = event.reply_to_msg_id or event.message.id
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
@@ -78,7 +80,7 @@ async def bot_ll(event):
         evaluation = stdout
     else:
         evaluation = "Success"
-    final_output = "**Eval:**\n`{}`\n\n**Output:**\n`{}`".format(cmd, evaluation)
+    final_output = f"**Eval:**\n`{cmd}`\n\n**Output:**\n`{evaluation}`"
     MAX_MESSAGE_SIZE_LIMIT = 4095
     if len(final_output) > MAX_MESSAGE_SIZE_LIMIT:
         with io.BytesIO(str.encode(final_output)) as out_file:

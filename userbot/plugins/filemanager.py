@@ -25,7 +25,7 @@ menu_category = "tools"
         "examples": "{tr}ls userbot",
     },
 )
-async def lst(event):  # sourcery no-metrics
+async def lst(event):    # sourcery no-metrics
     "To list all files and folders."
     legend = "".join(event.text.split(maxsplit=1)[1:])
     path = legend or os.getcwd()
@@ -38,7 +38,7 @@ async def lst(event):  # sourcery no-metrics
     path = Path(legend) if legend else os.getcwd()
     if os.path.isdir(path):
         if legend:
-            msg = "Folders and Files in `{}` :\n".format(path)
+            msg = f"Folders and Files in `{path}` :\n"
         else:
             msg = "Folders and Files in Current Directory :\n"
         lists = os.listdir(path)
@@ -66,7 +66,7 @@ async def lst(event):  # sourcery no-metrics
                     files += f"📄`{contents}`\n"
             else:
                 folders += f"📁`{contents}`\n"
-        msg = msg + folders + files if files or folders else msg + "__empty path__"
+        msg = msg + folders + files if files or folders else f"{msg}__empty path__"
     else:
         size = os.stat(path).st_size
         msg = "The details of given file :\n"

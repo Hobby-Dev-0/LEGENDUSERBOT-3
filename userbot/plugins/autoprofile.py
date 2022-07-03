@@ -210,8 +210,7 @@ async def bloom_pfploop():
 
 
 async def autoname_loop():
-    AUTONAMESTART = gvarstatus("autoname") == "true"
-    while AUTONAMESTART:
+    while AUTONAMESTART := gvarstatus("autoname") == "true":
         DM = time.strftime("%d-%m-%y")
         HM = time.strftime("%H:%M")
         name = f"⌚️ {HM}||›  {DEFAULTUSER} ‹||📅 {DM}"
@@ -222,12 +221,10 @@ async def autoname_loop():
             LOGS.warning(str(ex))
             await asyncio.sleep(ex.seconds)
         await asyncio.sleep(CHANGE_TIME)
-        AUTONAMESTART = gvarstatus("autoname") == "true"
 
 
 async def autobio_loop():
-    AUTOBIOSTART = gvarstatus("autobio") == "true"
-    while AUTOBIOSTART:
+    while AUTOBIOSTART := gvarstatus("autobio") == "true":
         DMY = time.strftime("%d.%m.%Y")
         HM = time.strftime("%H:%M")
         bio = f"📅 {DMY} | {DEFAULTUSERBIO} | ⌚️ {HM}"
@@ -238,7 +235,6 @@ async def autobio_loop():
             LOGS.warning(str(ex))
             await asyncio.sleep(ex.seconds)
         await asyncio.sleep(CHANGE_TIME)
-        AUTOBIOSTART = gvarstatus("autobio") == "true"
 
 
 async def animeprofilepic(collection_images):

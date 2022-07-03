@@ -335,16 +335,13 @@ async def _(event):
         ext_details = soup.find_all("td", {"colspan": "3"})[-1].text
         await eor(
             event,
-            "**File Extension**: `{}`\n**Description**: `{}`".format(
-                input_str, ext_details
-            ),
+            f"**File Extension**: `{input_str}`\n**Description**: `{ext_details}`",
         )
+
     else:
         await eor(
             event,
-            "https://www.fileext.com/ responded with {} for query: {}".format(
-                status_code, input_str
-            ),
+            f"https://www.fileext.com/ responded with {status_code} for query: {input_str}",
         )
 
 
@@ -358,9 +355,7 @@ async def _(event):
     },
 )
 async def _(LEGEND):
-    reply_to_id = LEGEND.message.id
-    if LEGEND.reply_to_msg_id:
-        reply_to_id = LEGEND.reply_to_msg_id
+    reply_to_id = LEGEND.reply_to_msg_id or LEGEND.message.id
     event = await eor(LEGEND, "Converting.....")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
@@ -391,7 +386,6 @@ async def _(LEGEND):
 async def resize_photo(photo):
     """Resize the given photo to 512x512"""
     image = Image.open(photo)
-    maxsize = (512, 512)
     if (image.width and image.height) < 512:
         size1 = image.width
         size2 = image.height
@@ -408,6 +402,7 @@ async def resize_photo(photo):
         sizenew = (size1new, size2new)
         image = image.resize(sizenew)
     else:
+        maxsize = (512, 512)
         image.thumbnail(maxsize)
 
     return image
@@ -465,8 +460,6 @@ async def png(args):
 
     if photo:
         splat = args.text.split()
-        if not emojibypass:
-            pass
         pack = 1
         if len(splat) == 3:
             pack = splat[2]  # User sent both
@@ -482,17 +475,15 @@ async def png(args):
         file = io.BytesIO()
         await args.delete()
 
-        if not is_anim:
-            image = await resize_photo(photo)
-            file.name = "sticker.png"
-            image.save(file, "PNG")
-        else:
+        if is_anim:
             packname += "_anim"
             packnick += " (Animated)"
-        if is_anim:
             await bot.send_file(arg.chat_id, "AnimatedSticker.tgs")
             remove(args.chat_id, "AnimatedSticker.tgs")
         else:
+            image = await resize_photo(photo)
+            file.name = "sticker.png"
+            image.save(file, "PNG")
             file.seek(0)
             await args.client.send_file(args.chat_id, file, force_document=True)
 
@@ -674,13 +665,9 @@ async def on_file_to_photo(event):
         "usage": "{tr}gif quality ; fps(frames per second)",
     },
 )
-async def _(event):  # sourcery no-metrics
+async def _(event):    # sourcery no-metrics
     "Converts Given animated sticker to gif"
-    input_str = event.pattern_match.group(1)
-    if not input_str:
-        quality = None
-        fps = None
-    else:
+    if input_str := event.pattern_match.group(1):
         loc = input_str.split(";")
         if len(loc) > 2:
             return await eod(
@@ -716,6 +703,9 @@ async def _(event):  # sourcery no-metrics
                 quality = loc[0].strip()
             else:
                 return await eod(event, "Use quality of range 0 to 721")
+    else:
+        quality = None
+        fps = None
     swtreply = await event.get_reply_message()
     swt_event = base64.b64decode("MFdZS2llTVloTjAzWVdNeA==")
     if not swtreply or not swtreply.media or not swtreply.media.document:
@@ -786,19 +776,18 @@ async def _(event):
     else:
         end = datetime.now()
         ms = (end - start).seconds
-        await event.edit(
-            "Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms)
-        )
+        await event.edit(f"Downloaded to `{downloaded_file_name}` in {ms} seconds.")
         new_required_file_name = ""
         new_required_file_caption = ""
         command_to_run = []
         voice_note = False
         supports_streaming = False
         if input_str == "voice":
-            new_required_file_caption = "voice_" + str(round(time.time())) + ".opus"
+            new_required_file_caption = f"voice_{str(round(time.time()))}.opus"
             new_required_file_name = (
-                Config.TMP_DOWNLOAD_DIRECTORY + "/" + new_required_file_caption
+                f"{Config.TMP_DOWNLOAD_DIRECTORY}/{new_required_file_caption}"
             )
+
             command_to_run = [
                 "ffmpeg",
                 "-i",
@@ -816,10 +805,11 @@ async def _(event):
             voice_note = True
             supports_streaming = True
         elif input_str == "mp3":
-            new_required_file_caption = "mp3_" + str(round(time.time())) + ".mp3"
+            new_required_file_caption = f"mp3_{str(round(time.time()))}.mp3"
             new_required_file_name = (
-                Config.TMP_DOWNLOAD_DIRECTORY + "/" + new_required_file_caption
+                f"{Config.TMP_DOWNLOAD_DIRECTORY}/{new_required_file_caption}"
             )
+
             command_to_run = [
                 "ffmpeg",
                 "-i",
@@ -880,7 +870,7 @@ async def _(event):
         "examples": ["{tr}itog s", "{tr}itog -s"],
     },
 )
-async def pic_gifcmd(event):  # sourcery no-metrics
+async def pic_gifcmd(event):    # sourcery no-metrics
     "To convert replied image or sticker to gif"
     reply = await event.get_reply_message()
     mediatype = media_type(reply)
@@ -892,7 +882,7 @@ async def pic_gifcmd(event):  # sourcery no-metrics
             "__Reply to photo or sticker to make it gif. Animated sticker is not supported__",
         )
     args = event.pattern_match.group(1)
-    args = "i" if not args else args.replace("-", "")
+    args = args.replace("-", "") if args else "i"
     legendevent = await eor(event, "__🎞 Making Gif from the relied media...__")
     imag = await _legendtools.media_to_pic(event, reply, noedits=True)
     if imag[1] is None:

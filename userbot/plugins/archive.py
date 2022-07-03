@@ -204,10 +204,9 @@ async def zip_file(event):  # sourcery no-metrics
         ],
     },
 )
-async def untar_file(event):  # sourcery no-metrics
+async def untar_file(event):    # sourcery no-metrics
     "To unpack the tar file"
-    input_str = event.pattern_match.group(1)
-    if input_str:
+    if input_str := event.pattern_match.group(1):
         path = Path(input_str)
         if os.path.exists(path):
             start = datetime.now()

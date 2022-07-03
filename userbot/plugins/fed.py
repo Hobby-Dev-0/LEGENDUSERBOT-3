@@ -35,10 +35,7 @@ unfbanresults = ["I'll give", "Un-FedBan", "un-FedBan"]
 )
 async def _(event):
     "Info of a person."
-    if event.pattern_match.group(1):
-        sysarg = event.pattern_match.group(1)
-    else:
-        sysarg = ""
+    sysarg = event.pattern_match.group(1) or ""
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         replied_user = await event.client(
@@ -49,7 +46,7 @@ async def _(event):
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
-                await conv.send_message("/info " + getuser)
+                await conv.send_message(f"/info {getuser}")
                 audio = await conv.get_response()
                 await event.client.forward_messages(event.chat_id, audio)
                 await event.delete()
@@ -62,7 +59,7 @@ async def _(event):
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
-                await conv.send_message("/info " + sysarg)
+                await conv.send_message(f"/info {sysarg}")
                 audio = await conv.get_response()
                 await event.client.forward_messages(event.chat_id, audio)
                 await event.delete()
@@ -446,9 +443,8 @@ async def quote_search(event):
     else:
         return await eod(event, "__There is no such fedgroup in your database.__")
     if output != "" and fedgroup:
-        output = (
-            f"**The list of feds in the category** `{fedgroup}` **are:**\n" + output
-        )
+        output = f"**The list of feds in the category** `{fedgroup}` **are:**\n{output}"
+
     elif output != "":
         output = "**The list of all feds in your database are :**\n" + output
     else:

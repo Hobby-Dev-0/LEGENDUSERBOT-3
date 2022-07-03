@@ -148,10 +148,12 @@ async def getbaed(event):
     if len(users) > 0:
         msg = f"✓ **List of banned member in this group** !!\n✓ Total : __{len(users)}__\n\n"
         for user in users:
-            if not user.deleted:
-                msg += f"🛡 __[{user.first_name}]({user.id})__\n"
-            else:
-                msg += "☠️ __ Deleted Account__\n"
+            msg += (
+                "☠️ __ Deleted Account__\n"
+                if user.deleted
+                else f"🛡 __[{user.first_name}]({user.id})__\n"
+            )
+
         await eor(event, msg)
     else:
         await eod(event, "No Banned Users !!")

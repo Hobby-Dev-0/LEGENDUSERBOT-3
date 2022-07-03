@@ -25,11 +25,12 @@ async def media_to_pic(event, reply, noedits=False):  # sourcery no-metrics
         "Document",
     ]:
         return event, None
-    if not noedits:
-        legendevent = await eor(event, "`Transfiguration Time! Converting to ....`")
+    legendevent = (
+        event
+        if noedits
+        else await eor(event, "`Transfiguration Time! Converting to ....`")
+    )
 
-    else:
-        legendevent = event
     legendmedia = None
     swtfile = os.path.join("./temp/", "meme.png")
     if os.path.exists(swtfile):

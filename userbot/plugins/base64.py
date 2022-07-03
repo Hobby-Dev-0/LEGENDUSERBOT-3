@@ -70,10 +70,7 @@ async def endecrypt(event):
     reply_msg = await event.get_reply_message()
     mediatype = media_type(reply_msg)
     type = event.text[6:9]
-    if reply_msg:
-        tol = reply_msg.text
-    else:
-        tol = event.text[9:]
+    tol = reply_msg.text if reply_msg else event.text[9:]
     if tol == "":
         return await eod(event, "I need something to encode \ncheck `.help base`")
     if "-e" in type:

@@ -45,17 +45,10 @@ async def install(event):
                     "./userbot/plugins/",  # pylint:disable=E0602
                 )
             )
-            op = open(downloaded_file_name, "r")
-            rd = op.read()
-            op.close()
+            with open(downloaded_file_name, "r") as op:
+                rd = op.read()
             try:
-                if "session" in rd:
-                    os.remove(downloaded_file_name)
-                    await legend.edit(
-                        f"**⚠️ WARNING !!** \n\n__Replied plugin file contains some harmful codes__."
-                    )
-                    return
-                elif "os.environ" in rd:
+                if "session" in rd or "os.environ" in rd:
                     os.remove(downloaded_file_name)
                     await legend.edit(
                         f"**⚠️ WARNING !!** \n\n__Replied plugin file contains some harmful codes__."
@@ -66,11 +59,9 @@ async def install(event):
                     shortname = path1.stem
                     load_module(shortname.replace(".py", ""))
                     if shortname in CMD_LIST:
-                        string = "**Commands found in** `{}`\n".format(
-                            (os.path.basename(downloaded_file_name))
-                        )
+                        string = f"**Commands found in** `{os.path.basename(downloaded_file_name)}`\n"
                         for i in CMD_LIST[shortname]:
-                            string += "  •  `" + i
+                            string += f"  •  `{i}"
                             string += "`\n"
                             if b == 1:
                                 a = "__Installing..__"

@@ -18,7 +18,7 @@ menu_category = "fun"
 )
 async def _(event):
     animation_interval = 0.5
-    animation_ttl = range(0, 2)
+    animation_ttl = range(2)
     await eor(event, "hello")
     animation_chars = [
         "Indian Flag",
@@ -68,8 +68,7 @@ async def _(event):
     animation_chars = [
         "**Hello!👋**",
         "**How Are You?**",
-        f"**Happy Birthday**"
-        "[Happy Birthday](http://2.bp.blogspot.com/-WGLaIVbpK6U/WT4sr0LG2TI/AAAAAAAAVX0/1t0F3gECRh4okN6zJzq6fMwQ7dA4Qw8AwCLcB/s1600/happy-birthday-to-you.png)",
+        '**Happy Birthday**[Happy Birthday](http://2.bp.blogspot.com/-WGLaIVbpK6U/WT4sr0LG2TI/AAAAAAAAVX0/1t0F3gECRh4okN6zJzq6fMwQ7dA4Qw8AwCLcB/s1600/happy-birthday-to-you.png)',
         "**Wishing you 👈 a 👌 day 🌞 filled 😏 with 👏 happiness and 👏 a 👌 year 🎉 filled 😏 with 👏 joy 😁.**",
         "**Sending you 👈 smiles 😀 for  every 👏 moment 🏆 of your special 😲 day 🌞**",
         "**Have 👏 a 👌 wonderful 😊 time 🕐 and a very 👌 happy 😊 birthday 🎂!**",
@@ -84,6 +83,7 @@ async def _(event):
         "[For You](http://i.pinimg.com/originals/10/b8/fb/10b8fb15270d8db1f6ff967e7026d2de.gif)",
         "[For You](http://www.lovethispic.com/uploaded_images/367867-Starry-Happy-Birthday-Gif.gif)",
     ]
+
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 17], link_preview=True)

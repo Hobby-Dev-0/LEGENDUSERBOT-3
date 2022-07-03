@@ -51,7 +51,7 @@ UNBAN_RIGHTS = ChatBannedRights(
 async def get_full_user(event):
     args = event.pattern_match.group(1).split(":", 1)
     extra = None
-    if event.reply_to_msg_id and not len(args) == 2:
+    if event.reply_to_msg_id and len(args) != 2:
         previous_message = await event.get_reply_message()
         user_obj = await event.client.get_entity(previous_message.sender_id)
         extra = event.pattern_match.group(1)
@@ -102,7 +102,7 @@ async def _(legendevent):
     await legendevent.get_sender()
     me = await legendevent.client.get_me()
     legend = await eor(legendevent, "`Promoting globally...`")
-    my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
+    my_mention = f"[{me.first_name}](tg://user?id={me.id})"
     f"@{me.username}" if me.username else my_mention
     await legendevent.get_chat()
     if legendevent.is_private:
@@ -144,7 +144,7 @@ async def _(legendevent):
             except:
                 pass
     else:
-        await legend.edit(f"**Reply to a user !!**")
+        await legend.edit("**Reply to a user !!**")
     await legend.edit(
         f"[{user.first_name}](tg://user?id={user.id}) **Was Promoted Globally In** `{i}` **Chats !!**"
     )
@@ -168,7 +168,7 @@ async def _(legendevent):
     await legendevent.get_sender()
     me = await legendevent.client.get_me()
     legend = await eor(legendevent, "`Demoting Globally...`")
-    my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
+    my_mention = f"[{me.first_name}](tg://user?id={me.id})"
     f"@{me.username}" if me.username else my_mention
     if legendevent.is_private:
         user = legendevent.chat
@@ -209,7 +209,7 @@ async def _(legendevent):
             except:
                 pass
     else:
-        await legend.edit(f"**Reply to a user !!**")
+        await legend.edit("**Reply to a user !!**")
     await legend.edit(
         f"[{user.first_name}](tg://user?id={user.id}) **Was Demoted Globally In** `{i}` **Chats !!**"
     )
@@ -228,7 +228,7 @@ async def _(legendevent):
         "usage": "{tr}gban <username/reply/userid> <reason (optional)>",
     },
 )
-async def lolgban(event):  # sourcery no-metrics
+async def lolgban(event):    # sourcery no-metrics
     "To ban user in every group where you are admin."
     start_date = str(datetime.now().strftime("%B %d, %Y"))
     lel = await eor(event, "`Gbanning...`")
@@ -241,10 +241,10 @@ async def lolgban(event):  # sourcery no-metrics
             return
     if not reason:
         reason = "Not mentioned"
-    chats = 0
     if user.id == 5122474448:
         return await eod(lel, "🥴 **Nashe me hai kya lawde ‽**")
     if not gban_sql_helper.is_gbanned(user.id):
+        chats = 0
         async for gfuck in event.client.iter_dialogs():
             if gfuck.is_group or gfuck.is_channel:
                 try:
@@ -307,11 +307,7 @@ async def lolgban(event):  # sourcery no-metrics
 
 
 async def get_user_id(ids):
-    if str(ids).isdigit():
-        userid = int(ids)
-    else:
-        userid = (await bot.get_entity(ids)).id
-    return userid
+    return int(ids) if str(ids).isdigit() else (await bot.get_entity(ids)).id
 
 
 @legend.legend_cmd(
@@ -341,9 +337,9 @@ async def loban(event):
         return await eod(event, "__Ok! I have ungbanned everyone successfully.__")
     if not reason:
         reason = "Not Mentioned."
-    chats = 0
     if gban_sql_helper.is_gbanned(user.id):
         gban_sql_helper.gbanned(user.id)
+        chats = 0
         async for gfuck in event.client.iter_dialogs():
             if gfuck.is_group or gfuck.is_channel:
                 try:
@@ -402,24 +398,24 @@ async def gablist(event):
 
 @bot.on(events.ChatAction)
 async def _(event):
-    if event.user_joined or event.added_by:
-        user = await event.get_user()
-        chat = await event.get_chat()
-        if gban_sql_helper.is_gbanned(str(user.id)):
-            if chat.admin_rights:
-                try:
-                    await event.client.edit_permissions(
-                        chat.id,
-                        user.id,
-                        view_messages=False,
-                    )
-                    gban_watcher = f"⚠️⚠️**Warning**⚠️⚠️\n\n`Gbanned User Joined the chat!!`\n**⚜️ Victim Id :**  [{user.first_name}](tg://user?id={user.id})\n"
-                    gban_watcher += (
-                        f"**🔥 Action 🔥**  \n`Banned this piece of shit....` **AGAIN!**"
-                    )
-                    await event.reply(gban_watcher)
-                except BaseException:
-                    pass
+    if not event.user_joined and not event.added_by:
+        return
+    user = await event.get_user()
+    chat = await event.get_chat()
+    if gban_sql_helper.is_gbanned(str(user.id)) and chat.admin_rights:
+        try:
+            await event.client.edit_permissions(
+                chat.id,
+                user.id,
+                view_messages=False,
+            )
+            gban_watcher = f"⚠️⚠️**Warning**⚠️⚠️\n\n`Gbanned User Joined the chat!!`\n**⚜️ Victim Id :**  [{user.first_name}](tg://user?id={user.id})\n"
+            gban_watcher += (
+                f"**🔥 Action 🔥**  \n`Banned this piece of shit....` **AGAIN!**"
+            )
+            await event.reply(gban_watcher)
+        except BaseException:
+            pass
 
 
 @legend.legend_cmd(

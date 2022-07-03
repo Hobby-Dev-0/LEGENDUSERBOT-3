@@ -27,8 +27,6 @@ async def get_user_from_event(
     nogroup=False,
     noedits=False,
 ):  # sourcery no-metrics
-    if legendevent is None:
-        pass
     if nogroup is False:
         if secondgroup:
             args = event.pattern_match.group(2).split(" ", 1)

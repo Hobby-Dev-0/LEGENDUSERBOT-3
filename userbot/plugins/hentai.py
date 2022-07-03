@@ -71,10 +71,9 @@ async def _(event):
             await event.edit("```Unblock @LoliHeavenBot```")
         if response.text.startswith("I can't find that"):
             return await event.edit("😐 I Cant Find that")
-        else:
-            await event.delete()
-            xxxx = await event.client.send_file(event.chat_id, response.message)
-            await unsave_gif(event, xxxx)
+        await event.delete()
+        xxxx = await event.client.send_file(event.chat_id, response.message)
+        await unsave_gif(event, xxxx)
 
 
 @legend.legend_cmd(

@@ -42,7 +42,7 @@ async def _get_file_name(path: pathlib.Path, full: bool = True) -> str:
         ],
     },
 )
-async def _(event):  # sourcery no-metrics
+async def _(event):    # sourcery no-metrics
     "To download the replied telegram file"
     mone = await eor(event, "`Downloading....`")
     input_str = event.pattern_match.group(3)
@@ -67,7 +67,7 @@ async def _(event):  # sourcery no-metrics
             name += "_" + str(getattr(reply.document, "id", reply.id)) + ext
         if path and path.exists():
             if path.is_file():
-                newname = str(path.stem) + "_OLD"
+                newname = f"{str(path.stem)}_OLD"
                 path.rename(path.with_name(newname).with_suffix(path.suffix))
                 file_name = path
             else:
@@ -166,7 +166,7 @@ async def _(event):  # sourcery no-metrics
                 f"**•  Downloaded in {ms} seconds.**\n**•  Downloaded file location :- ** `{os.path.relpath(downloaded_file_name,os.getcwd())}`"
             )
         else:
-            await mone.edit("Incorrect URL\n {}".format(input_str))
+            await mone.edit(f"Incorrect URL\n {input_str}")
     else:
         await mone.edit("`Reply to a message to download to my local server.`")
 

@@ -179,9 +179,7 @@ async def _(event):
                 )
             elif "automatically" in sweetie:
                 await conv.send_message("I was wrong, please release me now")
-                await eor(
-                    event, f"Your account is limited [click here](https://t.me/spambot)"
-                )
+                await eor(event, "Your account is limited [click here](https://t.me/spambot)")
             else:
                 await eor(event, sweetie)
         except YouBlockedUserError:

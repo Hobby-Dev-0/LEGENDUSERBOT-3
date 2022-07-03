@@ -75,7 +75,7 @@ async def kakashi(bsdk):
     "Bad stuff"
     animation_interval = 0.3
     animation_ttl = range(100)
-    bsdk = await eor(bsdk, f"**Ahhhhhhhh......**💦💦...")
+    bsdk = await eor(bsdk, "**Ahhhhhhhh......**💦💦...")
     animation_chars = [
         "8✊️===D",
         "8=✊️==D",
@@ -105,7 +105,7 @@ async def kakashi(bsdk):
     "Bad stuff"
     animation_interval = 1
     animation_ttl = range(11)
-    bsdk = await eor(bsdk, f"**Ohhh nooooo **💦💦...")
+    bsdk = await eor(bsdk, "**Ohhh nooooo **💦💦...")
     animation_chars = [
         "**Ohhh Baby..**😈",
         "__**Ohh Yeaah..**__\n\n 😈\n  |\  \n  |  \   \n 8=👊-D\n  |   \         \n 👟 👟       😲",

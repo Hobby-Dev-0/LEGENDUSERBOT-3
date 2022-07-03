@@ -180,10 +180,7 @@ async def _(event):
 )
 async def _(event):
     "To get list of commands."
-    input_str = event.pattern_match.group(1)
-    if not input_str:
-        outstr = await cmdlist()
-    else:
+    if input_str := event.pattern_match.group(1):
         try:
             cmds = PLG_INFO[input_str]
         except KeyError:
@@ -194,6 +191,8 @@ async def _(event):
         for cmd in cmds:
             outstr += f"  - `{cmdprefix}{cmd}`\n"
         outstr += f"**👨‍💻  Usage : ** `{cmdprefix}help -l <command name>`"
+    else:
+        outstr = await cmdlist()
     await eor(event, outstr, aslink=True, linktext="Total Commands of LegendBot are :")
 
 

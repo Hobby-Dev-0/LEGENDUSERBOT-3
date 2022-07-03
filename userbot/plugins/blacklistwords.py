@@ -59,9 +59,7 @@ async def _(event):
         sql.add_to_blacklist(event.chat_id, trigger.lower())
     await eor(
         event,
-        "Added {} triggers to the blacklist in the current chat".format(
-            len(to_blacklist)
-        ),
+        f"Added {len(to_blacklist)} triggers to the blacklist in the current chat",
     )
 
 

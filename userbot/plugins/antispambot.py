@@ -72,7 +72,7 @@ if Config.ANTISPAMBOT_BAN:
                     LOGS.info(e)
         if not legendbanned:
             try:
-                casurl = "https://api.cas.chat/check?user_id={}".format(user.id)
+                casurl = f"https://api.cas.chat/check?user_id={user.id}"
                 data = get(casurl).json()
             except Exception as e:
                 LOGS.info(e)
@@ -129,14 +129,15 @@ async def caschecker(event):
         async for user in event.client.iter_participants(info.id):
             if banchecker(user.id):
                 cas_count += 1
-                if not user.deleted:
-                    banned_users += f"{user.first_name}-`{user.id}`\n"
-                else:
-                    banned_users += f"Deleted Account `{user.id}`\n"
+                banned_users += (
+                    f"Deleted Account `{user.id}`\n"
+                    if user.deleted
+                    else f"{user.first_name}-`{user.id}`\n"
+                )
+
             members_count += 1
-        text = "**Warning!** Found `{}` of `{}` users are CAS Banned:\n".format(
-            cas_count, members_count
-        )
+        text = f"**Warning!** Found `{cas_count}` of `{members_count}` users are CAS Banned:\n"
+
         text += banned_users
         if not cas_count:
             text = "No CAS Banned users found!"
@@ -178,14 +179,15 @@ async def caschecker(event):
         async for user in event.client.iter_participants(info.id):
             if spamchecker(user.id):
                 cas_count += 1
-                if not user.deleted:
-                    banned_users += f"{user.first_name}-`{user.id}`\n"
-                else:
-                    banned_users += f"Deleted Account `{user.id}`\n"
+                banned_users += (
+                    f"Deleted Account `{user.id}`\n"
+                    if user.deleted
+                    else f"{user.first_name}-`{user.id}`\n"
+                )
+
             members_count += 1
-        text = "**Warning! **Found `{}` of `{}` users are spamwatch Banned:\n".format(
-            cas_count, members_count
-        )
+        text = f"**Warning! **Found `{cas_count}` of `{members_count}` users are spamwatch Banned:\n"
+
         text += banned_users
         if not cas_count:
             text = "No spamwatch Banned users found!"
@@ -202,7 +204,7 @@ async def caschecker(event):
 
 def banchecker(user_id):
     try:
-        casurl = "https://api.cas.chat/check?user_id={}".format(user_id)
+        casurl = f"https://api.cas.chat/check?user_id={user_id}"
         data = get(casurl).json()
     except Exception as e:
         LOGS.info(e)

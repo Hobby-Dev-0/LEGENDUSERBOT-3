@@ -29,11 +29,8 @@ async def _(event):
         word = response["list"][0]["word"]
         definition = response["list"][0]["definition"]
         example = response["list"][0]["example"]
-        result = "**Text: {}**\n**Meaning:**\n`{}`\n\n**Example:**\n`{}`".format(
-            _format.replacetext(word),
-            _format.replacetext(definition),
-            _format.replacetext(example),
-        )
+        result = f"**Text: {_format.replacetext(word)}**\n**Meaning:**\n`{_format.replacetext(definition)}`\n\n**Example:**\n`{_format.replacetext(example)}`"
+
         await eor(event, result)
     except Exception as e:
         await eod(

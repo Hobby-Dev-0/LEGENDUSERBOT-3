@@ -386,8 +386,7 @@ async def anilist_user(input_str):
     result = requests.post(
         anilisturl, json={"query": user_query, "variables": username}
     ).json()
-    error = result.get("errors")
-    if error:
+    if error := result.get("errors"):
         error_sts = error[0].get("message")
         return [f"{error_sts}"]
     user_data = result["data"]["User"]
@@ -454,10 +453,9 @@ def getBannerLink(mal, kitsu_search=True, anilistid=0):
     }
     """
     data = {"query": query, "variables": {"idMal": int(mal)}}
-    image = requests.post("https://graphql.anilist.co", json=data).json()["data"][
-        "Media"
-    ]["bannerImage"]
-    if image:
+    if image := requests.post("https://graphql.anilist.co", json=data).json()[
+        "data"
+    ]["Media"]["bannerImage"]:
         return image
     return getPosterLink(mal)
 
@@ -511,8 +509,6 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
         except IndexError:
             pass
         " ".join(synopsis) + "..."
-    else:
-        pass
     for entity in result:
         if result[entity] is None:
             result[entity] = "Unknown"
@@ -534,9 +530,10 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
             html_ += f"<h4>About Character and Role:</h4>{character.get('description', 'N/A')}"
             html_char += f"{html_}<br><br>"
         studios = "".join(
-            "<a href='{}'>• {}</a> ".format(studio["siteUrl"], studio["name"])
+            f"""<a href='{studio["siteUrl"]}'>• {studio["name"]}</a> """
             for studio in anime_data["studios"]["nodes"]
         )
+
         coverImg = anime_data.get("coverImage")["extraLarge"]
         bannerImg = anime_data.get("bannerImage")
         anilist_animelink = anime_data.get("siteUrl")
@@ -560,9 +557,6 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
         html_pc += (
             f"<a href='https://myanimelist.net/anime/{anime_malid}'>View on MAL</a>"
         )
-        html_pc += f"<a href='{anilist_animelink}'> View on anilist.co</a>"
-        html_pc += f"<img src='{bannerImg}'/>"
-        title_h = english or romaji
     else:
         anime_malid = result["id"]
         anime_result = await anime_json_synomsis(
@@ -601,13 +595,12 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
         html_pc += "<h3>More Info:</h3>"
         if result["idMal"]:
             html_pc += f"<a href='https://myanimelist.net/anime/{result['idMal']}'>View on MAL</a>"
-        html_pc += f"<a href='{anilist_animelink}'> View on anilist.co</a>"
-        html_pc += f"<img src='{bannerImg}'/>"
-        title_h = english or romaji
+    html_pc += f"<a href='{anilist_animelink}'> View on anilist.co</a>"
+    html_pc += f"<img src='{bannerImg}'/>"
+    title_h = english or romaji
     if search_type == "anime_anime":
         if result["startDate"]:
-            aired = ""
-            aired += str(result["startDate"]["year"])
+            aired = "" + str(result["startDate"]["year"])
             if result["startDate"]["month"]:
                 aired += "-" + str(result["startDate"]["month"])
             if result["startDate"]["day"]:
@@ -617,8 +610,7 @@ async def get_anime_manga(search_str, search_type, _user_id):  # sourcery no-met
         if result["status"].lower() != "finished":
             endaired = "Airing Now"
         else:
-            endaired = ""
-            endaired += str(result["endDate"]["year"])
+            endaired = "" + str(result["endDate"]["year"])
             if result["endDate"]["month"]:
                 endaired += "-" + str(result["endDate"]["month"])
             if result["endDate"]["day"]:
@@ -711,9 +703,12 @@ def memory_file(name=None, contents=None, *, temp_bytes=True):
 def is_gif(file):
     # ngl this should be fixed, telethon.utils.is_gif but working
     # lazy to go to github and make an issue kek
-    if not is_video(file):
-        return False
-    return DocumentAttributeAnimated() in getattr(file, "document", file).attributes
+    return (
+        DocumentAttributeAnimated()
+        in getattr(file, "document", file).attributes
+        if is_video(file)
+        else False
+    )
 
 
 async def search_in_animefiller(query):

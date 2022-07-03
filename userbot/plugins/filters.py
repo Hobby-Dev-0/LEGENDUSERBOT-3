@@ -155,7 +155,7 @@ async def on_snip_list(event):
     for filt in filters:
         if OUT_STR == "There are no filters in this chat.":
             OUT_STR = "Active filters in this chat:\n"
-        OUT_STR += "👉 `{}`\n".format(filt.keyword)
+        OUT_STR += f"👉 `{filt.keyword}`\n"
     await eor(
         event,
         OUT_STR,
@@ -176,9 +176,9 @@ async def remove_a_filter(event):
     "Stops the specified keyword."
     filt = event.pattern_match.group(1)
     if not remove_filter(event.chat_id, filt):
-        await event.edit("Filter` {} `doesn't exist.".format(filt))
+        await event.edit(f"Filter` {filt} `doesn't exist.")
     else:
-        await event.edit("Filter `{} `was deleted successfully".format(filt))
+        await event.edit(f"Filter `{filt} `was deleted successfully")
 
 
 @legend.legend_cmd(
@@ -191,8 +191,7 @@ async def remove_a_filter(event):
 )
 async def on_all_snip_delete(event):
     "To delete all filters in that group."
-    filters = get_filters(event.chat_id)
-    if filters:
+    if filters := get_filters(event.chat_id):
         remove_all_filters(event.chat_id)
         await eor(event, "filters in current chat deleted successfully")
     else:
